@@ -1,12 +1,16 @@
 const KlayDIDClient = require("klay-did-auth");
 const klayDID = new KlayDIDClient({
   network: "testnet",
-  regABI: "/home/pslab154/project/did-service/util/contract/DIDLedger.json",
+  regABI: "../util/contract/DIDLedger.json",
   regAddr: "0xdfa99a9c156101d7a764028aec6bb4541fac3cd1",
 });
 
-async function test() {
+async function createTest(){
+    const userInfo = '6f4303aa6cea2b0fae462fa9cc792443c03a0609';
     const create = await klayDID.createDocument();
+}
+async function test() {
+  const create = await klayDID.createDocument();
   const document = await klayDID.getDocument("did:kt:eFefe...");
   const nonce = await klayDID.getNonce("did:kt:eFefe..."); //????
 
@@ -31,5 +35,5 @@ async function test() {
     console.log(result2.msg); // >> Success add pubKey
   }
 }
-
-test();
+createTest();
+//test();
