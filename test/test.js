@@ -35,7 +35,8 @@ module.exports = class KlayDidClient {
     try{
       const from = this.auth.getAccount();
       const gas = this.auth.getGas();
-      const hashUserInfo = this._createUserInfoHash(userInfo);
+      //const hashUserInfo = this._createUserInfoHash(userInfo);
+      const hashUserInfo = userInfo; //only test '6f4303aa6cea2b0fae462fa9cc792443c03a0609'
       await this.didReg.methods.create(hashUserInfo).send({from: from, gas: gas});
 
       return this._returnMsg(1,'Success create document');
@@ -43,6 +44,20 @@ module.exports = class KlayDidClient {
       return this._returnMsg(-2, e.message);
     }
   }
+
+    /**@dev get document for did
+   * @param dom: did to find document of did in registry
+   * @return document
+   */
+     async getDocument(did) {
+      try{
+        const dom = await this.didReg.methods.getDocument(did).call();
+        return dom; 
+      }catch{
+        console.log(e);
+        return {contexts:[]}
+      }
+    }  
 
 
   /**

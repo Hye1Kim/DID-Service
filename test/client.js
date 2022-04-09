@@ -1,4 +1,5 @@
-const fs = require('fs')
+const fs = require('fs');
+const { get } = require('http');
 const KlayDIDClient = require("./test.js")
 const didLedgerJson = require("/home/pslab154/project/did-registry-dev/build/contracts/DIDLedger.json")
 // const contractJson = fs.readFileSync("/home/pslab154/project/did-service/test/contract/DIDLedger.json")
@@ -6,7 +7,7 @@ const didLedgerJson = require("/home/pslab154/project/did-registry-dev/build/con
 const klayDID = new KlayDIDClient({
   network: 'https://api.baobab.klaytn.net:8651',
   regABI: didLedgerJson,
-  regAddr: "0xdfa99a9c156101d7a764028aec6bb4541fac3cd1",
+  regAddr: "0x797a7335209f4b7f9a2f114edb570d2b4a35b756",
 });
 
 async function createTest(){
@@ -16,10 +17,11 @@ async function createTest(){
 }
 
 async function getDocTest(){
-  
+  //did:kt:6f4303aa6cea2b0fae462fa9cc792443c03a0609
+  const document = await klayDID.getDocument("did:kt:6f4303aa6cea2b0fae462fa9cc792443c03a0609");
+  console.log(document);
 }
 async function test() {
-  const create = await klayDID.createDocument();
   const document = await klayDID.getDocument("did:kt:eFefe...");
   const nonce = await klayDID.getNonce("did:kt:eFefe..."); //????
 
@@ -44,5 +46,6 @@ async function test() {
     console.log(result2.msg); // >> Success add pubKey
   }
 }
-createTest();
+//createTest();
+getDocTest();
 //test();
