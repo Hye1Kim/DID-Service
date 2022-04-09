@@ -1,13 +1,22 @@
-const KlayDIDClient = require("klay-did-auth");
+const fs = require('fs')
+const KlayDIDClient = require("./test.js")
+const didLedgerJson = require("/home/pslab154/project/did-registry-dev/build/contracts/DIDLedger.json")
+// const contractJson = fs.readFileSync("/home/pslab154/project/did-service/test/contract/DIDLedger.json")
+// const abi = JSON.parse(contractJson)
 const klayDID = new KlayDIDClient({
-  network: "testnet",
-  regABI: "../util/contract/DIDLedger.json",
+  network: 'https://api.baobab.klaytn.net:8651',
+  regABI: didLedgerJson,
   regAddr: "0xdfa99a9c156101d7a764028aec6bb4541fac3cd1",
 });
 
 async function createTest(){
     const userInfo = '6f4303aa6cea2b0fae462fa9cc792443c03a0609';
-    const create = await klayDID.createDocument();
+    const create = await klayDID.createDocument(userInfo);
+    console.log('dd');
+}
+
+async function getDocTest(){
+  
 }
 async function test() {
   const create = await klayDID.createDocument();

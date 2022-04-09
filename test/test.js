@@ -17,9 +17,9 @@ module.exports = class KlayDidClient {
   constructor(cfg) {
     this.caver = new Caver(cfg.network);
     this.auth = new Auth(this.caver);
-    this.didReg = new this.caver.contract(require(cfg.regABI), cfg.regAddr);
+    this.didReg = new this.caver.contract(cfg.regABI.abi, cfg.regAddr);
+    // error 임시로 해놈 abi -> https://ko.docs.klaytn.com/getting-started/quick-start/check-the-deployment
   }
-
 
   /**
    * @param userInfo: the user's personal information (name, resident registration number, phone number, etc.)
@@ -55,7 +55,13 @@ module.exports = class KlayDidClient {
 
   }
 
-
+  /**
+     * @param statusCode: -n: failed, 1: successful
+     * @param msg: result msg 
+     */
+  _returnMsg(statusCode, msg){
+    return {status: statusCode, msg: msg };
+  }
 
 
 };
