@@ -326,7 +326,7 @@ module.exports = class KlayDidClient {
     try{
       const dom = await this.didReg.methods.getDocument(did).call();
       return dom; 
-    }catch{
+    }catch(e){
       console.log(e);
       return {contexts:[]}
     }

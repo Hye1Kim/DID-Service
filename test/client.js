@@ -7,22 +7,24 @@ const didLedgerJson = require("/home/pslab154/project/did-registry-dev/build/con
 const klayDID = new KlayDIDClient({
   network: 'https://api.baobab.klaytn.net:8651',
   regABI: didLedgerJson,
-  regAddr: "0x797a7335209f4b7f9a2f114edb570d2b4a35b756",
+  regAddr: "0xd0f77339dc7f5599e3029ad54fc35f914d46a021",
 });
 
 async function createTest(){
-    const userInfo = '6f4303aa6cea2b0fae462fa9cc792443c03a0609';
+    const userInfo = '5f4303aa6cea2b0fae462fa9cc792443c03a0609';
     const create = await klayDID.createDocument(userInfo);
-    console.log('dd');
+    console.log(create);
 }
 
 async function getDocTest(){
-  //did:kt:6f4303aa6cea2b0fae462fa9cc792443c03a0609
-  const document = await klayDID.getDocument("did:kt:6f4303aa6cea2b0fae462fa9cc792443c03a0609");
+  //did:kt:test1no1hash1just1string
+  const did = 'did:kt:5f4303aa6cea2b0fae462fa9cc792443c03a0609';
+  const document = await klayDID.getDocument(did);
   console.log(document);
 }
+
 async function test() {
-  const document = await klayDID.getDocument("did:kt:eFefe...");
+  const documenstatust = await klayDID.getDocument("did:kt:eFefe...");
   const nonce = await klayDID.getNonce("did:kt:eFefe..."); //????
 
   //or login({path: 'key store file(json)', password: '1234'});
@@ -46,6 +48,6 @@ async function test() {
     console.log(result2.msg); // >> Success add pubKey
   }
 }
-//createTest();
-getDocTest();
+createTest();
+//getDocTest();
 //test();
