@@ -4,8 +4,7 @@ const secp256k1 = require('secp256k1');
 const {randomBytes} = require('crypto');
 const {Keccak} = require('sha3');
 const hash = new Keccak(256);
-const ACCOUNT = require('../config/account.js');
-const privateKey = ACCOUNT.PRIVATE_KEY; // Enter your private key;
+
 
 module.exports = class KlayDidClient {
 
@@ -29,11 +28,7 @@ module.exports = class KlayDidClient {
    *           -1: Login is required!    -2: error.msg
    *            1: success  */
   async createDocument(userInfo){
-    const privateKey = ACCOUNT.PRIVATE_KEY; // Enter your private key;
-    const address = ACCOUNT.ADDRESS; // Enter your private key;
-    const keyInfo = {'privateKey': privateKey, 'account': address};
-    const login = this.auth.login(keyInfo);
-    console.log(login);
+  
     if(!this.auth.isLogin()){ //login 확인
       return this._returnMsg(-1,'Login is required!');
     }

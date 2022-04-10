@@ -2,6 +2,7 @@ const fs = require('fs');
 const { get } = require('http');
 const KlayDIDClient = require("./test.js")
 const didLedgerJson = require("/home/pslab154/project/did-registry-dev/build/contracts/DIDLedger.json")
+const ACCOUNT = require('../config/account.js');
 // const contractJson = fs.readFileSync("/home/pslab154/project/did-service/test/contract/DIDLedger.json")
 // const abi = JSON.parse(contractJson)
 const klayDID = new KlayDIDClient({
@@ -24,11 +25,15 @@ async function getDocTest(){
 }
 
 async function test() {
-  const documenstatust = await klayDID.getDocument("did:kt:eFefe...");
-  const nonce = await klayDID.getNonce("did:kt:eFefe..."); //????
+  const privateKey = ACCOUNT.PRIVATE_KEY; // Enter your private key;
+  const address = ACCOUNT.ADDRESS; // Enter your private key;
+  const keyInfo = {'privateKey': privateKey, 'account': address};
+
+  //const documenstatust = await klayDID.getDocument("did:kt:eFefe...");
+  //const nonce = await klayDID.getNonce("did:kt:eFefe..."); //????
 
   //or login({path: 'key store file(json)', password: '1234'});
-  klayDID.auth.login({ account: "0x..", privateKey: "0x.." });
+  klayDID.auth.login(keyInfo);
 
   console.log(klayDID.auth.isLogin());
   // >> true
@@ -48,6 +53,5 @@ async function test() {
     console.log(result2.msg); // >> Success add pubKey
   }
 }
-createTest();
-//getDocTest();
-//test();
+
+test();
