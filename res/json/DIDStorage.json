@@ -1,0 +1,1286 @@
+{
+  "contractName": "DIDStorage",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "nonce",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b50610176806100206000396000f3fe608060405234801561001057600080fd5b5060043610610048576000357c010000000000000000000000000000000000000000000000000000000090048063fc14e4ee1461004d575b600080fd5b6101066004803603602081101561006357600080fd5b810190808035906020019064010000000081111561008057600080fd5b82018360208201111561009257600080fd5b803590602001918460018302840111640100000000831117156100b457600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050919291929050505061011c565b6040518082815260200191505060405180910390f35b600281805160208101820180518482526020830160208501208183528095505050505050600091509050548156fea165627a7a72305820f3d878b1b547fa4aa1c80a0b2655f0e871d2e1fb3550129b906dc4e4831e2edd0029",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b5060043610610048576000357c010000000000000000000000000000000000000000000000000000000090048063fc14e4ee1461004d575b600080fd5b6101066004803603602081101561006357600080fd5b810190808035906020019064010000000081111561008057600080fd5b82018360208201111561009257600080fd5b803590602001918460018302840111640100000000831117156100b457600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f82011690508083019250505050505050919291929050505061011c565b6040518082815260200191505060405180910390f35b600281805160208101820180518482526020830160208501208183528095505050505050600091509050548156fea165627a7a72305820f3d878b1b547fa4aa1c80a0b2655f0e871d2e1fb3550129b906dc4e4831e2edd0029",
+  "sourceMap": "24:1507:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;24:1507:1;;;;;;;",
+  "deployedSourceMap": "24:1507:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;24:1507:1;;;;;;;;;;;;;;;;;;;;961:36;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;961:36:1;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;961:36:1;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;961:36:1;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;961:36:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;961:36:1;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;28:7:-1;22:14;169:4;160:7;156:18;147:7;143:32;204:13;198:20;246:8;231:13;224:31;316:4;307:7;303:18;296:4;287:7;283:18;273:49;350:9;335:13;328:32;378:4;366:16;;0:388;;;;961:36:1;;;;;;;;:::o",
+  "source": "pragma solidity 0.5.6;\n\ncontract DIDStorage{\n\n    // mapping(string => Document[]) documents; //key: 신원인증고유갑, value: 분산id\n    // mapping(string => DIDState) didState;\n    // mapping(string => Service[]) services;\n    // mapping(string => uint) public nonce;\n\n    // enum DIDState {None, Active, Deactivated}\n\n    //     struct PublicKey{\n    //     string id;\n    //     string keyType;\n    //     string pubKeyData;\n    //     bool disable;\n    // }\n\n    // struct Document{\n    //     string[] contexts;  //\"https://www.w3.org/ns/did/v1\" 왜 배열이야 ?\n    //     string id;\n    //     PublicKey[] publicKeys;\n    //     string[] credentials;\n    // }\n\n    // struct Service{\n    //     string id;\n    //     PublicKey[] publicKeys;\n    //     string serviceType; //issuer, verifier\n    //     string endPoint;\n    //     bool disable;\n    // }\n\n\n\n    mapping(string => Document) documents;\n    mapping(string => DIDState) didState;\n    mapping(string => uint) public nonce;\n    \n    enum DIDState {None, Active, Deactivated}\n\n    struct PublicKey{\n        string id;\n        string keyType;\n        string pubKeyData;\n        bool disable;\n    }\n    \n    struct Service{\n        string id;\n        string serviceType;\n        string serviceEndPoint;\n        PublicKey[] publickeys;\n        bool disable;\n    }\n    \n    struct Document{\n        string id;\n        string[] contexts;  //\"https://www.w3.org/ns/did/v1\" 왜 배열이야 ?\n        PublicKey[] publicKeys;\n        string[] credentials;\n    }\n\n\n}\n",
+  "sourcePath": "/home/pslab154/project/did-registry-dev/contracts/DIDStorage.sol",
+  "ast": {
+    "absolutePath": "/home/pslab154/project/did-registry-dev/contracts/DIDStorage.sol",
+    "exportedSymbols": {
+      "DIDStorage": [
+        456
+      ]
+    },
+    "id": 457,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 406,
+        "literals": [
+          "solidity",
+          "0.5",
+          ".6"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:22:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 456,
+        "linearizedBaseContracts": [
+          456
+        ],
+        "name": "DIDStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 410,
+            "name": "documents",
+            "nodeType": "VariableDeclaration",
+            "scope": 456,
+            "src": "876:37:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_Document_$455_storage_$",
+              "typeString": "mapping(string => struct DIDStorage.Document)"
+            },
+            "typeName": {
+              "id": 409,
+              "keyType": {
+                "id": 407,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "884:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "876:27:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_Document_$455_storage_$",
+                "typeString": "mapping(string => struct DIDStorage.Document)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 408,
+                "name": "Document",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 455,
+                "src": "894:8:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Document_$455_storage_ptr",
+                  "typeString": "struct DIDStorage.Document"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 414,
+            "name": "didState",
+            "nodeType": "VariableDeclaration",
+            "scope": 456,
+            "src": "919:36:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_enum$_DIDState_$422_$",
+              "typeString": "mapping(string => enum DIDStorage.DIDState)"
+            },
+            "typeName": {
+              "id": 413,
+              "keyType": {
+                "id": 411,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "927:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "919:27:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_enum$_DIDState_$422_$",
+                "typeString": "mapping(string => enum DIDStorage.DIDState)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 412,
+                "name": "DIDState",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 422,
+                "src": "937:8:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_DIDState_$422",
+                  "typeString": "enum DIDStorage.DIDState"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 418,
+            "name": "nonce",
+            "nodeType": "VariableDeclaration",
+            "scope": 456,
+            "src": "961:36:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_uint256_$",
+              "typeString": "mapping(string => uint256)"
+            },
+            "typeName": {
+              "id": 417,
+              "keyType": {
+                "id": 415,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "969:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "961:23:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_uint256_$",
+                "typeString": "mapping(string => uint256)"
+              },
+              "valueType": {
+                "id": 416,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "979:4:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DIDStorage.DIDState",
+            "id": 422,
+            "members": [
+              {
+                "id": 419,
+                "name": "None",
+                "nodeType": "EnumValue",
+                "src": "1023:4:1"
+              },
+              {
+                "id": 420,
+                "name": "Active",
+                "nodeType": "EnumValue",
+                "src": "1029:6:1"
+              },
+              {
+                "id": 421,
+                "name": "Deactivated",
+                "nodeType": "EnumValue",
+                "src": "1037:11:1"
+              }
+            ],
+            "name": "DIDState",
+            "nodeType": "EnumDefinition",
+            "src": "1008:41:1"
+          },
+          {
+            "canonicalName": "DIDStorage.PublicKey",
+            "id": 431,
+            "members": [
+              {
+                "constant": false,
+                "id": 424,
+                "name": "id",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1081:9:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 423,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1081:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 426,
+                "name": "keyType",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1100:14:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 425,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1100:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 428,
+                "name": "pubKeyData",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1124:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 427,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1124:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 430,
+                "name": "disable",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1151:12:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 429,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1151:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "PublicKey",
+            "nodeType": "StructDefinition",
+            "scope": 456,
+            "src": "1055:115:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DIDStorage.Service",
+            "id": 443,
+            "members": [
+              {
+                "constant": false,
+                "id": 433,
+                "name": "id",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1204:9:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 432,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1204:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 435,
+                "name": "serviceType",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1223:18:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 434,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1223:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 437,
+                "name": "serviceEndPoint",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1251:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 436,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1251:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 440,
+                "name": "publickeys",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1283:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                  "typeString": "struct DIDStorage.PublicKey[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "contractScope": null,
+                    "id": 438,
+                    "name": "PublicKey",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 431,
+                    "src": "1283:9:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_PublicKey_$431_storage_ptr",
+                      "typeString": "struct DIDStorage.PublicKey"
+                    }
+                  },
+                  "id": 439,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1283:11:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                    "typeString": "struct DIDStorage.PublicKey[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 442,
+                "name": "disable",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1315:12:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 441,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1315:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Service",
+            "nodeType": "StructDefinition",
+            "scope": 456,
+            "src": "1180:154:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DIDStorage.Document",
+            "id": 455,
+            "members": [
+              {
+                "constant": false,
+                "id": 445,
+                "name": "id",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1369:9:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 444,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1369:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 448,
+                "name": "contexts",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1388:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                  "typeString": "string[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 446,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1388:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "id": 447,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1388:8:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                    "typeString": "string[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 451,
+                "name": "publicKeys",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1468:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                  "typeString": "struct DIDStorage.PublicKey[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "contractScope": null,
+                    "id": 449,
+                    "name": "PublicKey",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 431,
+                    "src": "1468:9:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_PublicKey_$431_storage_ptr",
+                      "typeString": "struct DIDStorage.PublicKey"
+                    }
+                  },
+                  "id": 450,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1468:11:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                    "typeString": "struct DIDStorage.PublicKey[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 454,
+                "name": "credentials",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1500:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                  "typeString": "string[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 452,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1500:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "id": 453,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1500:8:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                    "typeString": "string[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Document",
+            "nodeType": "StructDefinition",
+            "scope": 456,
+            "src": "1344:183:1",
+            "visibility": "public"
+          }
+        ],
+        "scope": 457,
+        "src": "24:1507:1"
+      }
+    ],
+    "src": "0:1532:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/pslab154/project/did-registry-dev/contracts/DIDStorage.sol",
+    "exportedSymbols": {
+      "DIDStorage": [
+        456
+      ]
+    },
+    "id": 457,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 406,
+        "literals": [
+          "solidity",
+          "0.5",
+          ".6"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:22:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 456,
+        "linearizedBaseContracts": [
+          456
+        ],
+        "name": "DIDStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 410,
+            "name": "documents",
+            "nodeType": "VariableDeclaration",
+            "scope": 456,
+            "src": "876:37:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_Document_$455_storage_$",
+              "typeString": "mapping(string => struct DIDStorage.Document)"
+            },
+            "typeName": {
+              "id": 409,
+              "keyType": {
+                "id": 407,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "884:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "876:27:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_Document_$455_storage_$",
+                "typeString": "mapping(string => struct DIDStorage.Document)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 408,
+                "name": "Document",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 455,
+                "src": "894:8:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Document_$455_storage_ptr",
+                  "typeString": "struct DIDStorage.Document"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 414,
+            "name": "didState",
+            "nodeType": "VariableDeclaration",
+            "scope": 456,
+            "src": "919:36:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_enum$_DIDState_$422_$",
+              "typeString": "mapping(string => enum DIDStorage.DIDState)"
+            },
+            "typeName": {
+              "id": 413,
+              "keyType": {
+                "id": 411,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "927:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "919:27:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_enum$_DIDState_$422_$",
+                "typeString": "mapping(string => enum DIDStorage.DIDState)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 412,
+                "name": "DIDState",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 422,
+                "src": "937:8:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_DIDState_$422",
+                  "typeString": "enum DIDStorage.DIDState"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 418,
+            "name": "nonce",
+            "nodeType": "VariableDeclaration",
+            "scope": 456,
+            "src": "961:36:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_uint256_$",
+              "typeString": "mapping(string => uint256)"
+            },
+            "typeName": {
+              "id": 417,
+              "keyType": {
+                "id": 415,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "969:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "961:23:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_uint256_$",
+                "typeString": "mapping(string => uint256)"
+              },
+              "valueType": {
+                "id": 416,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "979:4:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DIDStorage.DIDState",
+            "id": 422,
+            "members": [
+              {
+                "id": 419,
+                "name": "None",
+                "nodeType": "EnumValue",
+                "src": "1023:4:1"
+              },
+              {
+                "id": 420,
+                "name": "Active",
+                "nodeType": "EnumValue",
+                "src": "1029:6:1"
+              },
+              {
+                "id": 421,
+                "name": "Deactivated",
+                "nodeType": "EnumValue",
+                "src": "1037:11:1"
+              }
+            ],
+            "name": "DIDState",
+            "nodeType": "EnumDefinition",
+            "src": "1008:41:1"
+          },
+          {
+            "canonicalName": "DIDStorage.PublicKey",
+            "id": 431,
+            "members": [
+              {
+                "constant": false,
+                "id": 424,
+                "name": "id",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1081:9:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 423,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1081:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 426,
+                "name": "keyType",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1100:14:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 425,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1100:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 428,
+                "name": "pubKeyData",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1124:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 427,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1124:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 430,
+                "name": "disable",
+                "nodeType": "VariableDeclaration",
+                "scope": 431,
+                "src": "1151:12:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 429,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1151:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "PublicKey",
+            "nodeType": "StructDefinition",
+            "scope": 456,
+            "src": "1055:115:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DIDStorage.Service",
+            "id": 443,
+            "members": [
+              {
+                "constant": false,
+                "id": 433,
+                "name": "id",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1204:9:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 432,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1204:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 435,
+                "name": "serviceType",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1223:18:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 434,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1223:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 437,
+                "name": "serviceEndPoint",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1251:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 436,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1251:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 440,
+                "name": "publickeys",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1283:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                  "typeString": "struct DIDStorage.PublicKey[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "contractScope": null,
+                    "id": 438,
+                    "name": "PublicKey",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 431,
+                    "src": "1283:9:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_PublicKey_$431_storage_ptr",
+                      "typeString": "struct DIDStorage.PublicKey"
+                    }
+                  },
+                  "id": 439,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1283:11:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                    "typeString": "struct DIDStorage.PublicKey[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 442,
+                "name": "disable",
+                "nodeType": "VariableDeclaration",
+                "scope": 443,
+                "src": "1315:12:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 441,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1315:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Service",
+            "nodeType": "StructDefinition",
+            "scope": 456,
+            "src": "1180:154:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DIDStorage.Document",
+            "id": 455,
+            "members": [
+              {
+                "constant": false,
+                "id": 445,
+                "name": "id",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1369:9:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 444,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1369:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 448,
+                "name": "contexts",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1388:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                  "typeString": "string[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 446,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1388:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "id": 447,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1388:8:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                    "typeString": "string[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 451,
+                "name": "publicKeys",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1468:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                  "typeString": "struct DIDStorage.PublicKey[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "contractScope": null,
+                    "id": 449,
+                    "name": "PublicKey",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 431,
+                    "src": "1468:9:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_PublicKey_$431_storage_ptr",
+                      "typeString": "struct DIDStorage.PublicKey"
+                    }
+                  },
+                  "id": 450,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1468:11:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_PublicKey_$431_storage_$dyn_storage_ptr",
+                    "typeString": "struct DIDStorage.PublicKey[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 454,
+                "name": "credentials",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "1500:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                  "typeString": "string[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 452,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1500:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "id": 453,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1500:8:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                    "typeString": "string[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Document",
+            "nodeType": "StructDefinition",
+            "scope": 456,
+            "src": "1344:183:1",
+            "visibility": "public"
+          }
+        ],
+        "scope": 457,
+        "src": "24:1507:1"
+      }
+    ],
+    "src": "0:1532:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.6+commit.b259423e.Emscripten.clang"
+  },
+  "networks": {
+    "1001": {
+      "events": {},
+      "links": {},
+      "address": "0xdb0bd2b5344ea88adea3fe7a661a26b5441c154e",
+      "transactionHash": "0x56931a19ac4dec1992c59259b91d7827d762e00f4b60c7655b9f0fd6c7f58c3e"
+    }
+  },
+  "schemaVersion": "2.0.2",
+  "updatedAt": "2022-04-11T07:13:48.512Z"
+}

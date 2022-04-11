@@ -8,7 +8,7 @@ const ACCOUNT = require('../config/account.js');
 const klayDID = new KlayDIDClient({
   network: 'https://api.baobab.klaytn.net:8651',
   regABI: didLedgerJson,
-  regAddr: "0xd0f77339dc7f5599e3029ad54fc35f914d46a021",
+  regAddr: "0xeaef75fa84d04eb4bef10a82b23bb99e78e47eeb",
 });
 
 async function createTest(){
@@ -35,23 +35,26 @@ async function test() {
   //or login({path: 'key store file(json)', password: '1234'});
   klayDID.auth.login(keyInfo);
 
+  //createTest()
+
+  getDocTest()
   console.log(klayDID.auth.isLogin());
   // >> true
 
-  const result1 = await klayDID.createDocument();
-  if (result1.status == -1 || result1.status == -2) {
-    console.log(result1.msg); // >> Login is required  or Failed create document
-  }
+  // const result1 = await klayDID.createDocument();
+  // if (result1.status == -1 || result1.status == -2) {
+  //   console.log(result1.msg); // >> Login is required  or Failed create document
+  // }
 
-  const result2 = await klayDID.addPubKey(
-    "did:kt:eFefe...",
-    "EcdsaSecp256k1RecoveryMethod2020",
-    "0xdmFkem..",
-    "did:kt:Femfd.."
-  );
-  if (result2.status == 1) {
-    console.log(result2.msg); // >> Success add pubKey
-  }
+  // const result2 = await klayDID.addPubKey(
+  //   "did:kt:eFefe...",
+  //   "EcdsaSecp256k1RecoveryMethod2020",
+  //   "0xdmFkem..",
+  //   "did:kt:Femfd.."
+  // );
+  // if (result2.status == 1) {
+  //   console.log(result2.msg); // >> Success add pubKey
+  // }
 }
 
 test();
