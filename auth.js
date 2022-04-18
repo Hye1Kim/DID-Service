@@ -18,10 +18,9 @@ module.exports = class Account{
     }
 
     /**
-     * @param keyInfo: {path, password} or {account, privateKey} 
+     * @param keyInfo: {path, password} or {address, privateKey} 
      */
     login(keyInfo){
-        console.log('dd');
         if(keyInfo.password != null){
             this._addKeystoreKeyring(keyInfo);
         }else if(keyInfo.privateKey != null){

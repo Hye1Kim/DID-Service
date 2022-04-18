@@ -32,9 +32,16 @@
     "email": "alsgh458@gmail.com"
   },
   "dependencies": {
+    "atob": "^2.1.2",
+    "body-parser": "^1.20.0",
     "caver-js": "^1.8.1",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
+    "keccak256": "^1.0.6",
+    "moment": "^2.29.2",
+    "moment-timezone": "^0.5.34",
     "secp256k1": "^4.0.3",
     "sha3": "^2.1.3"
   },
