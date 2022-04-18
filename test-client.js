@@ -3,7 +3,7 @@
 const fs = require('fs');
 const { get } = require('http');
 const KlayDIDClient = require("./index.js")
-const didLedgerJson = require("/home/pslab154/project/did-registry-dev/build/contracts/DIDLedger.json")
+const didLedgerJson = require("/home/pslab154/project/did-service/contract/DIDLedger.json")
 const ACCOUNT = require('../config/account.js');
 const CONTRACT = require('../config/contract.js');
 // const contractJson = fs.readFileSync("/home/pslab154/project/did-service/test/contract/DIDLedger.json")
@@ -66,7 +66,7 @@ async function test() {
   const address = ACCOUNT.ADDRESS; // Enter your private key;
   const keyInfo = {'privateKey': privateKey, 'account': address};
 
-  const userInfo = {'name':'kimhyewon2','regNum':'990114-2xxxxxx','phone':'010-4181-2358'};
+  const userInfo = {'name':'kimhyewon2','regNum':'990114-2xxxxxx','phone':'01000000000'};
   // const userInfo = {
   //   'name': '이영은',
   //   'regNum': '980828-2222222',

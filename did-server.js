@@ -12,7 +12,7 @@ moment.tz.setDefault("Asia/Seoul");
 const fs = require('fs');
 const { get } = require('http');
 const KlayDIDClient = require("./index.js")
-const didLedgerJson = require("/home/pslab154/project/did-registry-dev/build/contracts/DIDLedger.json")
+const didLedgerJson = require("/home/pslab154/project/did-service/contract/DIDLedger.json")
 const ACCOUNT = require('../config/account.js');
 const CONTRACT = require('../config/contract.js');
 // const contractJson = fs.readFileSync("/home/pslab154/project/did-service/test/contract/DIDLedger.json")

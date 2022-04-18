@@ -1,6 +1,6 @@
 node_modules/
-config/account.js
-config/contract.js
+config/
 README-klaytn-did-client.txt
 doc/
 klayDID/
+test_function.js
