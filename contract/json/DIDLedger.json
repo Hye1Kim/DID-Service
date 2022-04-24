@@ -17010,12 +17010,12 @@
     "1001": {
       "events": {},
       "links": {
-        "DIDUtils": "0xa638fce6c25939cc436a751c86b83d5e554b70d2"
+        "DIDUtils": "0x93fd05b325b718b25f599ab4e0ad611f25ce6414"
       },
-      "address": "0xa26462b487bcfa1153cc515875888450c7a0ef93",
-      "transactionHash": "0x478c0ee948ad16b7b9b308d557e4390f746ef0368a449cd0cf232cabb10df53c"
+      "address": "0x6dfe5beb4145a9c360154348caa967e80b2a9fca",
+      "transactionHash": "0xe866a8fa3aeba76cd6a7bd66f8f8e93752422ce226d344af05fa401c07355508"
     }
   },
   "schemaVersion": "2.0.2",
-  "updatedAt": "2022-04-17T07:35:40.091Z"
+  "updatedAt": "2022-04-20T13:45:09.224Z"
 }

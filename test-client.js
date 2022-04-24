@@ -1,16 +1,12 @@
 //함수 하나씩 실행해보는 서버 없는 테스트 클라이언트 
 
-const fs = require('fs');
-const { get } = require('http');
-const KlayDIDClient = require("./index.js")
-const didLedgerJson = require("/home/pslab154/project/did-service/contract/DIDLedger.json")
-const ACCOUNT = require('../config/account.js');
-const CONTRACT = require('../config/contract.js');
-// const contractJson = fs.readFileSync("/home/pslab154/project/did-service/test/contract/DIDLedger.json")
-// const abi = JSON.parse(contractJson)
+const KlayDIDClient = require("./index.js");
+const ACCOUNT = require('./config/account.js');
+const CONTRACT = require('./config/contract.js');
+const ACCESS=require('./config/access.js');
 const klayDID = new KlayDIDClient({
   network: 'https://api.baobab.klaytn.net:8651',
-  regABI: didLedgerJson,
+  regABI: CONTRACT.DEPLOYED_JSON_DIDLedger,
   regAddr: CONTRACT.DEPLOYED_ADDRESS_DIDLedger,
 });
 
@@ -34,7 +30,7 @@ async function createTest(userInfo,publicKey){
 }
 
 async function getDocTest(){
-  const did = 'did:kt:0d82ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab';
+  const did = 'did:kt:1111ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab';
   const document = await klayDID.getDocument(did);
   console.log(document);
 }
@@ -51,9 +47,9 @@ async function addPubKey(userInfo){
 
 async function createService(){
   const svcInfo = '1111ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab'
-  const endPoint = '203.250.77.154'
-  const svcType = 'verifier'
-  const publicKey ='0xc785d10da57a63d20d14b54a6b322a136b3dd683'
+  const endPoint = ACCESS.ISSUER;
+  const svcType = 'credential issuer (card)'
+  const publicKey =ACCOUNT.SVC_ADDRESS
 
   const createSvc = await klayDID.createSvc(svcInfo,endPoint,svcType,publicKey);
   
@@ -62,12 +58,12 @@ async function createService(){
 }
 
 async function test() {
-  const privateKey = ACCOUNT.PRIVATE_KEY; // Enter your private key;
-  const address = ACCOUNT.ADDRESS; // Enter your private key;
+  const privateKey = ACCOUNT.SVC_PRIVATE_KEY; // Enter your private key;
+  const address = ACCOUNT.SVC_ADDRESS; // Enter your private key;
   const keyInfo = {'privateKey': privateKey, 'account': address};
 
-  const userInfo = {'name':'kimhyewon2','regNum':'990114-2xxxxxx','phone':'01000000000'};
-  // const userInfo = {
+  const userInfo = {'name':'kimhyewon','regNum':'990114-2xxxxxx','phone':'01000000000'};
+  // const userInfo = { //'0x180150aa48b9ebae77e569eacc31c807f81d2031'
   //   'name': '이영은',
   //   'regNum': '980828-2222222',
   //   'phone': '01900000000'
@@ -75,14 +71,15 @@ async function test() {
   const createPubKey = address;
 
   //or login({path: 'key store file(json)', password: '1234'});
-  //klayDID.auth.login(keyInfo);
+  klayDID.auth.login(keyInfo);
   
   //createTest(userInfo,createPubKey)
 
-  addPubKey(userInfo)
-  //getDocTest()
+  //addPubKey(userInfo)
+  getDocTest()
   //createService()
-  //view_did(userInfo,'0x180150aa48b9ebae77e569eacc31c807f81d2031')
+  //view_did('1111ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab',address)
+  
 
 
 }

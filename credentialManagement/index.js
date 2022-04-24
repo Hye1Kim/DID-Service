@@ -10,19 +10,18 @@ const ACCOUNT = require('./config/account.js');
 const keyInfo = {'privateKey': ACCOUNT.PRIVATE_KEY, 'account': ACCOUNT.ADDRESS};
 
 //financeDID
-module.exports = class FinDIDClient {
+module.exports = class vcManagementClient {
 
   /**
    * @param cfg {
    *  network: blockchain endpoint
-   *  regABI: did reg abi path 
-   *  regAddr: did reg address
+   *  vcABI: did reg abi path 
+   *  vcAddr: did reg address
    * }  */
   constructor(cfg) {
     this.caver = new Caver(cfg.network);
     this.auth = new Auth(this.caver);
-    this.didReg = new this.caver.contract(cfg.regABI.abi, cfg.regAddr);
-    // cfg.regABI.abi erro때문에 임시로 해놈 abi -> https://ko.docs.klaytn.com/getting-started/quick-start/check-the-deployment
+    this.vc = new this.caver.contract(cfg.vcABI.abi, cfg.vcAddr);
   }
 
   async create_view(userInfo,publicKey,isReSearch){
@@ -52,7 +51,8 @@ module.exports = class FinDIDClient {
    * @return statusCode
    *           -1: Login is required!    -2: error.msg
    *            1: success  */
-  async createDocument(userInfo,publicKey){ 
+
+  async register(uDid,iDid,cid,ciid){ 
   
     if(!this._isLogin()){ //login 확인
       return this._returnMsg(-1,'Login is required!');
@@ -60,15 +60,10 @@ module.exports = class FinDIDClient {
     
 
     try{
-      const from = this.auth.getAccount();
-      const gas = this.auth.getGas();
-      const hashUserInfo = this._createUserInfoHash(userInfo); //userInfo는 json
-      //const hashUserInfo = userInfo; //only test '6f4303aa6cea2b0fae462fa9cc792443c03a0609'
-      await this.didReg.methods.create(hashUserInfo,publicKey).send({from: from, gas: gas});
-      
-      return {'isReSearch': false ,'msg' :this._returnMsg(1,'Success create document')}; 
+      const from = this.auth.getAccount();registry
+      return {'isReSearch': false ,'msg' :this._returnMsg(1,'Success register vc')}; 
     }catch(e){
-      return {'isReSearch': true ,'msg' : this._returnMsg(-2, e.message)}; //userInfo에 해당하는 did가 이미 있는 경우
+      return {'isReSearch': true ,'msg' : this._returnMsg(-2, e.message)}; 
     }
   }
 
@@ -76,11 +71,11 @@ module.exports = class FinDIDClient {
    * @param dom: did to find document of did in registry
    * @return document
    */
-  async getDocument(did) { //fin
+  async getList(cid,uDid) { //fin
     try{
-      const dom = await this.didReg.methods.getDocument(did).call();
+      const cid = await this.didReg.methods.getDocument(did).call();
       return dom; 
-    }catch(e){
+    }catch(e
       console.log(e);
       return {contexts:[]}
     }

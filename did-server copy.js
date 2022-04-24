@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+// const databaseIP = process.argv[3];
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -10,13 +11,15 @@ moment.tz.setDefault("Asia/Seoul");
 
 const fs = require('fs');
 const { get } = require('http');
-const FinDIDClient = require("./index.js")
+const FinDIDClient = require("./did-registry/index.js")
+const CredentialClient = require("./credentialManagement");
+const ACCOUNT = require('./config/account.js');
 const CONTRACT = require('./config/contract.js');
 const finDID = new FinDIDClient({
-    network: 'https://api.baobab.klaytn.net:8651',
-    regABI: CONTRACT.DEPLOYED_JSON_DIDLedger,
-    regAddr: CONTRACT.DEPLOYED_ADDRESS_DIDLedger,
-  });
+  network: 'https://api.baobab.klaytn.net:8651',
+  regABI: CONTRACT.DIDLedger_JSON,
+  regAddr: CONTRACT.DEPLOYED_ADDRESS_DIDLedger,
+});
 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
