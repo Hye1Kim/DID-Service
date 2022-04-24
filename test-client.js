@@ -46,9 +46,9 @@ async function addPubKey(userInfo){
 }
 
 async function createService(){
-  const svcInfo = '1111ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab'
-  const endPoint = ACCESS.ISSUER;
-  const svcType = 'credential issuer (card)'
+  const svcInfo = '2222ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab'
+  const endPoint = ACCESS.VERIFIER;
+  const svcType = 'presentation verifier (online ship)'
   const publicKey =ACCOUNT.SVC_ADDRESS
 
   const createSvc = await klayDID.createSvc(svcInfo,endPoint,svcType,publicKey);
