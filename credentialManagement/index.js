@@ -6,7 +6,7 @@ const {Keccak} = require('sha3');
 const hash = new Keccak(256);
 const keccak256 = require('keccak256')
 
-const ACCOUNT = require('./config/account.js');
+const ACCOUNT = require('../config/account.js');
 const keyInfo = {'privateKey': ACCOUNT.PRIVATE_KEY, 'account': ACCOUNT.ADDRESS};
 
 //financeDID
@@ -23,7 +23,7 @@ module.exports = class vcManagementClient {
     this.auth = new Auth(this.caver);
     this.vc = new this.caver.contract(cfg.vcABI.abi, cfg.vcAddr);
   }
-
+/* finish line */
   async create_view(userInfo,publicKey,isReSearch){
     try{
       if(isReSearch==true && isReSearch!='None') return {'reSearch':isReSearch}; //true
@@ -57,13 +57,19 @@ module.exports = class vcManagementClient {
     if(!this._isLogin()){ //login 확인
       return this._returnMsg(-1,'Login is required!');
     }
-    
 
     try{
-      const from = this.auth.getAccount();registry
-      return {'isReSearch': false ,'msg' :this._returnMsg(1,'Success register vc')}; 
+      const from = this.auth.getAccount();
+      const gas = this.auth.getGas();
+      await this.vc.methods.register(uDid,iDid,cid,ciid).send(
+        {
+          from: from, 
+          gas: gas 
+        });
+
+      return {'msg' :this._returnMsg(1,'Success register vc')}; 
     }catch(e){
-      return {'isReSearch': true ,'msg' : this._returnMsg(-2, e.message)}; 
+      return {'msg' : this._returnMsg(-2, e.message)}; 
     }
   }
 
@@ -71,11 +77,11 @@ module.exports = class vcManagementClient {
    * @param dom: did to find document of did in registry
    * @return document
    */
-  async getList(cid,uDid) { //fin
+  async getVC(cid,uDid) { //fin
     try{
       const cid = await this.didReg.methods.getDocument(did).call();
       return dom; 
-    }catch(e
+    }catch(e){
       console.log(e);
       return {contexts:[]}
     }

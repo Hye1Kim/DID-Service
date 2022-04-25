@@ -1,15 +1,21 @@
 //함수 하나씩 실행해보는 서버 없는 테스트 클라이언트 
 
 const KlayDIDClient = require("./index.js");
+const CredentialClient = require("./credentialManagement/index.js");
 const ACCOUNT = require('./config/account.js');
 const CONTRACT = require('./config/contract.js');
 const ACCESS=require('./config/access.js');
 const klayDID = new KlayDIDClient({
   network: 'https://api.baobab.klaytn.net:8651',
   regABI: CONTRACT.DEPLOYED_JSON_DIDLedger,
-  regAddr: CONTRACT.DEPLOYED_ADDRESS_DIDLedger,
+  regAddr: CONTRACT.DEPLOYED_ADDRESS_DIDLedger
 });
 
+const credentialManager = new CredentialClient({
+  network: 'https://api.baobab.klaytn.net:8651',
+  vcABI: CONTRACT.DEPLOYED_JSON_VC_Management,
+  vcAddr: CONTRACT.DEPLOYED_ADDRESS_VC_Management
+});
 async function view_did (userInfo,publicKey){
   const view = await klayDID.create_view(userInfo,publicKey);
   console.log(view)
@@ -57,9 +63,25 @@ async function createService(){
 
 }
 
+async function registerVC(uDid,iDid,cid,ciid){
+  const register = await credentialManager.register(uDid,iDid,cid,ciid);
+  console.log(register); 
+
+}
+
+async function getVC(cid,uDid){
+  const vc = await credentialManager.getVC(cid,uDid);
+  console.log(vc);
+}
+async function revokeVC(cid,iDid){
+  const revoke = await credentialManager.revoke(cid,iDid);
+  console.log(revoke);
+}
+
+
 async function test() {
-  const privateKey = ACCOUNT.SVC_PRIVATE_KEY; // Enter your private key;
-  const address = ACCOUNT.SVC_ADDRESS; // Enter your private key;
+  const privateKey = ACCOUNT.PRIVATE_KEY; // Enter your private key;
+  const address = ACCOUNT.ADDRESS; // Enter your private key;
   const keyInfo = {'privateKey': privateKey, 'account': address};
 
   const userInfo = {'name':'kimhyewon','regNum':'990114-2xxxxxx','phone':'01000000000'};
@@ -76,11 +98,20 @@ async function test() {
   //createTest(userInfo,createPubKey)
 
   //addPubKey(userInfo)
-  getDocTest()
+  //getDocTest()
   //createService()
   //view_did('1111ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab',address)
   
 
+  /* credential Management */
+  const uDid = 'did:kt:0d82ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab';
+  const iDid = 'did:kt:1111ec18df5395bf2ca7611f0648bfc1c935bdd1773c1bb411c42f23318ba9ab'
+  const cid = 'dd';
+  const ciid = 'ff';
+
+  registerVC(uDid,iDid,cid,ciid);
+  //getVC(cid,uDid);
+  //revokeVC(cid,iDid);
 
 }
 
